@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import getImageUrl from '@/services/getImageUrl';
 import PushPet from '@/services/postDB';
+import { useRouter } from 'next/navigation';
 
 interface PetInfo {
     imageUrl: string;
@@ -22,7 +23,7 @@ interface PetInfo {
 
 export default function Post() {
 
-
+  const router = useRouter();
   const [valuePair, setValuePair] = useState({ date: '', value: '' });
   const [petInfo, setPetInfo] = useState<PetInfo>({
     imageUrl: '',
@@ -127,6 +128,18 @@ const setImageUrl = async (file: File) => {
           <Button type="submit" onClick={(e)=>{
             e.preventDefault();
             PushPet(petInfo);
+            setPetInfo({
+              imageUrl: '',
+              name: '',
+              variant: '',
+              demand: '',
+              stability: '',
+              value: [],
+              category: '',
+              rap: '',
+              exist: '',
+            });
+            router.push('/post');
           }}>Submit</Button>
         </form>
       </CardContent>
