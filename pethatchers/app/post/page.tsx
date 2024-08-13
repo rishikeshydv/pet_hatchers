@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import getImageUrl from '@/services/getImageUrl';
 import PushPet from '@/services/postDB';
-import { useRouter } from 'next/navigation';
+
 
 interface PetInfo {
     imageUrl: string;
@@ -23,7 +23,6 @@ interface PetInfo {
 
 export default function Post() {
 
-  const router = useRouter();
   const [valuePair, setValuePair] = useState({ date: '', value: '' });
   const [petInfo, setPetInfo] = useState<PetInfo>({
     imageUrl: '',
@@ -61,22 +60,22 @@ const setImageUrl = async (file: File) => {
 
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" placeholder="Enter pet name" onChange={(e)=>setPetInfo({...petInfo,name:e.target.value})}/>
+            <Input id="name" placeholder="Enter pet name" value={petInfo.name} onChange={(e)=>setPetInfo({...petInfo,name:e.target.value})}/>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="variant">Variant</Label>
-            <Input id="variant" placeholder="Enter variant"  onChange={(e)=>setPetInfo({...petInfo,variant:e.target.value})}/>
+            <Input id="variant" placeholder="Enter variant" value={petInfo.variant}  onChange={(e)=>setPetInfo({...petInfo,variant:e.target.value})}/>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="demand">Demand</Label>
-            <Input id="demand" placeholder="Enter demand" onChange={(e)=>setPetInfo({...petInfo,demand:e.target.value})}/>
+            <Input id="demand" placeholder="Enter demand" value={petInfo.demand} onChange={(e)=>setPetInfo({...petInfo,demand:e.target.value})}/>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="stability">Stability</Label>
-            <Input id="stability" placeholder="Enter stability"  onChange={(e)=>setPetInfo({...petInfo,stability:e.target.value})}/>
+            <Input id="stability" placeholder="Enter stability" value={petInfo.stability} onChange={(e)=>setPetInfo({...petInfo,stability:e.target.value})}/>
           </div>
 
           <div className="space-y-2">
@@ -84,10 +83,12 @@ const setImageUrl = async (file: File) => {
               <div className="flex space-x-2">
                 <Input
                   type="date"
+                  value = {valuePair.date}
                   onChange={(e) => updateValuePair ('date', e.target.value)}
                 />
                 <Input
                   placeholder="Value"
+                  value = {valuePair.value}
                   onChange={(e) => updateValuePair('value', e.target.value)}
                 />
               </div>
@@ -103,7 +104,9 @@ const setImageUrl = async (file: File) => {
 
           <div className="space-y-2">
             <Label htmlFor="category">Category</Label>
-            <Select onValueChange={(e)=>setPetInfo({...petInfo,category:e})}>
+            <Select 
+            value={petInfo.category}
+            onValueChange={(e)=>setPetInfo({...petInfo,category:e})}>
               <SelectTrigger id="category">
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
@@ -117,12 +120,12 @@ const setImageUrl = async (file: File) => {
 
           <div className="space-y-2">
             <Label htmlFor="rap">RAP</Label>
-            <Input id="rap" placeholder="Enter RAP" onChange={(e)=>setPetInfo({...petInfo,rap:e.target.value})}/>
+            <Input id="rap" placeholder="Enter RAP" value={petInfo.rap} onChange={(e)=>setPetInfo({...petInfo,rap:e.target.value})}/>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="exist">Exist</Label>
-            <Input id="exist" placeholder="Enter EXIST" onChange={(e)=>setPetInfo({...petInfo,exist:e.target.value})}/>
+            <Input id="exist" placeholder="Enter EXIST" value={petInfo.exist} onChange={(e)=>setPetInfo({...petInfo,exist:e.target.value})}/>
           </div>
 
           <Button type="submit" onClick={(e)=>{
@@ -138,8 +141,8 @@ const setImageUrl = async (file: File) => {
               category: '',
               rap: '',
               exist: '',
-            });
-            router.push('/post');
+            });;
+            setValuePair({date:'',value:''});
           }}>Submit</Button>
         </form>
       </CardContent>
