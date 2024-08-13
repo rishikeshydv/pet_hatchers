@@ -20,7 +20,7 @@ const PushPet  = async (Pet:PetInfo) => {
         await setDoc(docRef,Pet)
     }
     catch (error){
-        console.error(error)
+        console.error("error is",error)
     }
 }
 
